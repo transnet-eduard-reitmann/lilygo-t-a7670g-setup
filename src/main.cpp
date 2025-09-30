@@ -46,6 +46,9 @@ TinyGPSPlus gps;
 
 void displayInfo()
 {
+    Serial.println(F("==========================================="));
+
+    // Location
     Serial.print(F("Location: "));
     if (gps.location.isValid()) {
         Serial.print(gps.location.lat(), 6);
@@ -54,8 +57,40 @@ void displayInfo()
     } else {
         Serial.print(F("INVALID"));
     }
+    Serial.println();
 
-    Serial.print(F("  Date/Time: "));
+    // Altitude
+    Serial.print(F("Altitude: "));
+    if (gps.altitude.isValid()) {
+        Serial.print(gps.altitude.meters());
+        Serial.print(F("m"));
+    } else {
+        Serial.print(F("INVALID"));
+    }
+    Serial.println();
+
+    // Speed
+    Serial.print(F("Speed: "));
+    if (gps.speed.isValid()) {
+        Serial.print(gps.speed.kmph());
+        Serial.print(F(" km/h"));
+    } else {
+        Serial.print(F("INVALID"));
+    }
+    Serial.println();
+
+    // Course
+    Serial.print(F("Course: "));
+    if (gps.course.isValid()) {
+        Serial.print(gps.course.deg());
+        Serial.print(F("\xC2\xB0"));  // Degree symbol
+    } else {
+        Serial.print(F("INVALID"));
+    }
+    Serial.println();
+
+    // Date/Time
+    Serial.print(F("Date/Time: "));
     if (gps.date.isValid()) {
         Serial.print(gps.date.month());
         Serial.print(F("/"));
@@ -82,7 +117,27 @@ void displayInfo()
     } else {
         Serial.print(F("INVALID"));
     }
+    Serial.println();
 
+    // Satellites
+    Serial.print(F("Satellites: "));
+    if (gps.satellites.isValid()) {
+        Serial.print(gps.satellites.value());
+    } else {
+        Serial.print(F("INVALID"));
+    }
+    Serial.println();
+
+    // HDOP (Horizontal Dilution of Precision)
+    Serial.print(F("HDOP: "));
+    if (gps.hdop.isValid()) {
+        Serial.print(gps.hdop.hdop(), 2);
+    } else {
+        Serial.print(F("INVALID"));
+    }
+    Serial.println();
+
+    Serial.println(F("==========================================="));
     Serial.println();
 }
 
